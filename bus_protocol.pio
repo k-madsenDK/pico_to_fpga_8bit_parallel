@@ -1,0 +1,34 @@
+.program bus_master_tx
+; Pico master skriver til FPGA
+;
+; GP2-GP9  = data bus
+; GP10     = clock/strobe
+; GP13     = FULL fra FPGA, HIGH = stop
+
+.wrap_target
+    wait 0 gpio 13
+    pull block
+    out pins, 8 [1]
+    set pins, 1 [3]
+    set pins, 0 [3]
+.wrap
+
+
+.program bus_master_rx
+; Pico master læser fra FPGA
+;
+; GP2-GP9  = data bus
+; GP10     = clock/request/ack
+; GP12     = EMPTY fra FPGA, HIGH = ingen data
+;
+; RX:
+; rising edge giver FPGA tid til at lægge data på bussen.
+; Pico sampler efter falling edge.
+
+.wrap_target
+    wait 0 gpio 12
+    set pins, 1 [3]
+    set pins, 0 [3]
+    in pins, 8 [1]
+    push block
+.wrap

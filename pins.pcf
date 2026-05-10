@@ -1,0 +1,36 @@
+# pins.pcf — Alchitry CU (iCE40 HX8K-CB132)
+# VERIFICÉR DISSE MOD DIN BOARD-DOKUMENTATION!
+
+#hw defaults hardwired
+set_io clk_in      P7  # extern 100mhz osciliator
+set_io rst_n  P8 #aktiv low
+
+# 8 onboard LEDs
+set_io led[0]  J11
+set_io led[1]  K11
+set_io led[2]  K12
+set_io led[3]  K14
+set_io led[4]  L12
+set_io led[5]  L14
+set_io led[6]  M12
+set_io led[7]  N14
+
+#end of hw wired
+
+#pico parallel interface start
+
+set_io 	databus[0] 	C7 #gp2 på pico
+set_io	databus[1]	D7
+set_io	databus[2]	D10
+set_io	databus[3]	C12
+set_io	databus[4]	D12
+set_io	databus[5]	F11
+set_io	databus[6]	G12
+set_io	databus[7]	H11	#gp9 på pico
+
+set_io	masterclk	C6	#clk fra master input
+set_io	wr_rd		D6	#wr/rd low slave rd high slave write input
+set_io	empty		D9	#slave buffer tom = 1	output
+set_io	full		C11	#slave buffer fuld	output 
+
+#pico parallel interface slut
